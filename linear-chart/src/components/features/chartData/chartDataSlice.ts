@@ -22,9 +22,7 @@ const chartDataSlice = <any>createSlice({
     name:'chartData',
     initialState,
     reducers:{
-        addItemEx:(state,action)=> {
-            state.itmes += action.payload
-        }
+
     },
     extraReducers:builder => {
         builder.addCase(fetchChartData.pending, state => {
@@ -40,7 +38,7 @@ const chartDataSlice = <any>createSlice({
         builder.addCase(fetchChartData.rejected, (state, action) => {
             state.loading = false
             state.chartData = []
-            state.error = action.meta.arg 
+            state.error = action.error.message 
         })
     }
 
