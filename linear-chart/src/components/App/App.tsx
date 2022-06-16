@@ -18,12 +18,14 @@ function App() {
 
   const chartDataState = useSelector((state: any) => state.chartData)
 
+ //uniqe Arrays for Countries, Camps, and Schools.
   const uniqueCountryNames = chartDataState.chartData
     .map((dataObj: any) => dataObj.country)
     .filter((countryName: any, index: any, arr: any) => {
       return arr.indexOf(countryName) === index;
     })
 
+   
   const uniqueCampNames = chartDataState.chartData
     .map((dataObj: any) => dataObj.camp)
     .filter((campName: any, index: any, arr: any) => {
@@ -39,6 +41,7 @@ function App() {
   // console.log(uniqueCountryNames)
   // console.log(uniqueSchoolNames)
 
+  //Takes data from each select input and uses it filter the whole fetched data from API
   function filterData(chosenCounrty:string, chosenCamp:string, chosenSchool:string,) {
     if(chosenSchool === "Show all") {
       return chartDataState.chartData.filter((dataObj:any) => (
@@ -57,11 +60,13 @@ function App() {
 let filteredData = filterData(selectedCountry,selectedCamp,selectedSchool)
 // console.log(filteredData)
 
+
+//Sum of all lessons in a chosen Camp
 let totalLessons = filteredData.reduce((acc:number,filteredDataObj:any) => acc+=filteredDataObj.lessons ,0)
 // console.log(totalLessons)
 
 
-
+//Sum of all lessons for each school
 function sumOfLesssonsPerSchool(filteredData:any) {
   let schoolsData:any = {}
   filteredData.forEach((data:any) => {
@@ -71,6 +76,7 @@ function sumOfLesssonsPerSchool(filteredData:any) {
       schoolsData[data.school] = data.lessons;
     }
   });
+
   // to display each school and its lessons in an array
   let schoolsArr = [];
   for(let prop in schoolsData) {
@@ -90,8 +96,8 @@ let lessonsPershool = sumOfLesssonsPerSchool(filteredData)
       <label>Select Country
         <select value={selectedCountry} onChange={e => setSelectedCountry(e.currentTarget.value)}>
           <option>Select</option>
-          {uniqueCountryNames.map((country: string) => (
-            <option>{country}</option>
+          {uniqueCountryNames.map((country: string,index:number) => (
+            <option key={index}>{country}</option>
           ))}
         </select>
       </label>
@@ -101,8 +107,8 @@ let lessonsPershool = sumOfLesssonsPerSchool(filteredData)
       <label>Select Camp
         <select value={selectedCamp} onChange={e => setSelectedCamp(e.currentTarget.value)}>
           <option>Select</option>
-          {uniqueCampNames.map((camp: string) => (
-            <option>{camp}</option>
+          {uniqueCampNames.map((camp: string,index:number) => (
+            <option key={index}>{camp}</option>
           ))}
         </select>
       </label>
@@ -113,12 +119,12 @@ let lessonsPershool = sumOfLesssonsPerSchool(filteredData)
         <select value={selectedSchool} onChange={e => setSelectedSchool(e.currentTarget.value)}>
           <option>Select</option>
           <option>Show all</option>
-          {uniqueSchoolNames.map((school: string) => (
-            <option>{school}</option>
+          {uniqueSchoolNames.map((school: string, index:number) => (
+            <option key={index}>{school}</option>
           ))}
         </select>
       </label>
-      {/* <div>{selectedSchool==="Select"?"Please Select School"}</div> */}
+      <div>{selectedSchool==="Select"?"Please Select School":null}</div>
 
 
 
@@ -136,6 +142,9 @@ let lessonsPershool = sumOfLesssonsPerSchool(filteredData)
           </ul>
         </div>
       ) : null}
+
+
+
 
     </div>
   );
