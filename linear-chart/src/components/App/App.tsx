@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChartData } from '../features/chartData/chartDataSlice';
-import { objectTraps } from 'immer/dist/internal';
+import { selectCountry, selectCamp, selectSchool } from '../features/chartData/chartDataSlice';
 import { Chart as ChartJS, registerables } from 'chart.js'
 import { Line } from 'react-chartjs-2';
-
+import SelectCountry from '../SelectCountry/SelectCountry';
+import SelectCamp from '../SelectCamp/SelectCamp'
+import SelecSchool from '../SelectSchool/SelectSchool'
+import {BounceLoader, BarLoader, BeatLoader} from 'react-spinners'
 ChartJS.register(...registerables)
 
-function App() {
-  const [selectedCountry, setSelectedCountry] = useState("")
-  const [selectedCamp, setSelectedCamp] = useState("")
-  const [selectedSchool, setSelectedSchool] = useState("")
+const App:React.FC = () => {
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchChartData())
   }, [])
+
+  const selectedCountry = useSelector((state:any)=> state.chartData.selectedCountry)
+  const selectedCamp = useSelector((state:any)=> state.chartData.selectedCamp)
+  const selectedSchool = useSelector((state:any)=> state.chartData.selectedSchool)
+  // console.log(selectedCountry,selectedCamp,selectedSchool)
 
   const chartDataState = useSelector((state: any) => state.chartData)
 
@@ -41,9 +45,7 @@ function App() {
     .filter((schoolName: any, index: any, arr: any) => {
       return arr.indexOf(schoolName) === index;
     })
-  // console.log(uniqueCampNames)
-  // console.log(uniqueCountryNames)
-  // console.log(uniqueSchoolNames)
+
 
   //Takes data from each select input and uses it filter the whole fetched data from API
   function filterData(chosenCounrty: string, chosenCamp: string, chosenSchool: string,) {
@@ -62,7 +64,8 @@ function App() {
     }
   }
   let filteredData = filterData(selectedCountry, selectedCamp, selectedSchool)
-  console.log(filteredData)
+  // console.log(filteredData)
+
 
   /////////////////////////////////////////////////////////
   // function zeft() {
@@ -95,9 +98,9 @@ function App() {
     }
 
     //sort by months
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    monthsArr.sort((a:any,b:any)=>{
-      return months.indexOf(a.month)-months.indexOf(b.month)
+    let Months:any =['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    monthsArr.sort((a:any,b:any)=> {
+      return Months.indexOf(a.month) - Months.indexOf(b.month)
     })
 
     return monthsArr
@@ -105,7 +108,7 @@ function App() {
 
   }
   let lessonsPerMonthForSchool = lessonsPerMonthForChosenSchool(filteredData)
-  console.log(lessonsPerMonthForSchool)
+  // console.log(lessonsPerMonthForSchool)
 
 
   //Sum of all lessons in a chosen Camp
@@ -147,19 +150,19 @@ function App() {
       mappedMonths.push({month:null, lessons:0})
     }
   })
-  console.log(mappedMonths)
+  // console.log(mappedMonths)
 
 
 
 ////////////////////////
-
-
-  let mappedzeft:any = []
-  console.log(mappedzeft)
-
-  
+  // let mappedzeft:any = []
+  // filteredData.forEach((data:any)=>{
     
+  // })
+  // console.log(mappedzeft)
+
   
+
  
 
   const data: any = {
@@ -179,47 +182,21 @@ function App() {
 
   }
 
+  let numOfSelects = [1,2,3]
 
   return (
     <div className="App">
-      <h1>data from api</h1>
+      
 
-      <label>Select Country
-        <select value={selectedCountry} onChange={e => setSelectedCountry(e.currentTarget.value)}>
-          <option>Select</option>
-          {uniqueCountryNames.map((country: string, index: number) => (
-            <option key={index}>{country}</option>
-          ))}
-        </select>
-      </label>
-      <div>{selectedCountry === "Select" ? "Please Select Country" : null}</div>
+      <h1>Analysis Chart</h1>
+      <h3>Number of Lessons</h3>
+    
+      <SelectCountry selectOptions={uniqueCountryNames}/>
+      <SelectCamp selectOptions={uniqueCampNames}/>
+      <SelecSchool selectOptions={uniqueSchoolNames}/>
 
 
-      <label>Select Camp
-        <select value={selectedCamp} onChange={e => setSelectedCamp(e.currentTarget.value)}>
-          <option>Select</option>
-          {uniqueCampNames.map((camp: string, index: number) => (
-            <option key={index}>{camp}</option>
-          ))}
-        </select>
-      </label>
-      <div>{selectedCamp === "Select" ? "Please Select Camp" : null}</div>
-
-
-      <label>Select School
-        <select value={selectedSchool} onChange={e => setSelectedSchool(e.currentTarget.value)}>
-          <option>Select</option>
-          <option>Show all</option>
-          {uniqueSchoolNames.map((school: string, index: number) => (
-            <option key={index}>{school}</option>
-          ))}
-        </select>
-      </label>
-      <div>{selectedSchool === "Select" ? "Please Select School" : null}</div>
-
-
-
-      {chartDataState.loading && <h1>Loading...</h1>}
+      {chartDataState.loading && <div>Loading<BeatLoader loading={chartDataState.loading}/></div>}
       {!chartDataState.loading && chartDataState.error ? <h2>Error:{chartDataState.error}</h2> : null}
       {!chartDataState.loading && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
         <div>
@@ -234,7 +211,7 @@ function App() {
         </div>
       ) : null}
 
-
+      {/* {<div><BounceLoader loading={chartDataState.loading}/></div>} */}
       <div style={{ width: "500px", height: "500px", margin: "auto" }}><Line data={data} options={options} /></div>
 
     </div>

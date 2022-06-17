@@ -4,45 +4,57 @@ import axios from "axios"
 import build from "react-countup"
 
 
-const initialState ={
-    loading:false,
-    chartData:<any>[],
-    error:<any>'',
-    itmes:<any>5
+const initialState = {
+    loading: true,
+    chartData: <any>[],
+    error: '',
+    selectedCountry: '',
+    selectedCamp: '',
+    selectedSchool: ''
 }
 
 
-export const fetchChartData = <any>createAsyncThunk('chartData/fetchChartData',()=>{
-    return (axios.get("https://raw.githubusercontent.com/abdelrhman-arnos/analysis-fe-challenge/master/data.json")
-           .then(response => response.data))
+export const fetchChartData = <any>createAsyncThunk('chartData/fetchChartData', () => {
+    return (
+        axios
+        .get("https://raw.githubusercontent.com/abdelrhman-arnos/analysis-fe-challenge/master/data.json")
+        .then(response => response.data))
 })
 
 
 const chartDataSlice = <any>createSlice({
-    name:'chartData',
+    name: 'chartData',
     initialState,
-    reducers:{
-
+    reducers: {
+        selectCountry: (state, action) => {
+            state.selectedCountry = action.payload
+        },
+        selectCamp: (state, action) => {
+            state.selectedCamp = action.payload
+        },
+        selectSchool: (state, action) => {
+            state.selectedSchool = action.payload
+        },
     },
-    extraReducers:builder => {
+    extraReducers: builder => {
         builder.addCase(fetchChartData.pending, state => {
             state.loading = true
         })
 
         builder.addCase(fetchChartData.fulfilled, (state, action) => {
             state.loading = false
-            state.chartData= action.payload
-            state.error=''
+            state.chartData = action.payload
+            state.error = ''
         })
 
         builder.addCase(fetchChartData.rejected, (state, action) => {
             state.loading = false
             state.chartData = []
-            state.error = action.error.message 
+            state.error = action.error.message
         })
     }
 
 })
 
 export default chartDataSlice.reducer
-export const {addItemEx} = chartDataSlice.actions
+export const { selectCountry, selectCamp, selectSchool } = chartDataSlice.actions
