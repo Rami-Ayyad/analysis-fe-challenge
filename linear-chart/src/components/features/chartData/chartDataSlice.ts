@@ -5,8 +5,8 @@ import build from "react-countup"
 
 
 const initialState = {
-    loading: true,
-    chartData: <any>[],
+    isLoading: true,
+    dataFromAPI: <any>[],
     error: '',
     selectedCountry: '',
     selectedCamp: '',
@@ -38,18 +38,18 @@ const chartDataSlice = <any>createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchChartData.pending, state => {
-            state.loading = true
+            state.isLoading = true
         })
 
         builder.addCase(fetchChartData.fulfilled, (state, action) => {
-            state.loading = false
-            state.chartData = action.payload
+            state.isLoading = false
+            state.dataFromAPI = action.payload
             state.error = ''
         })
 
         builder.addCase(fetchChartData.rejected, (state, action) => {
-            state.loading = false
-            state.chartData = []
+            state.isLoading = false
+            state.dataFromAPI = []
             state.error = action.error.message
         })
     }

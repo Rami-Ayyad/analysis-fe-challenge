@@ -25,3 +25,18 @@ body{
   margin:20px 0;
 }
 
+
+.api-error-message{
+  color: rgba(255, 0, 0, 0.794);
+  background-color: rgba(0, 200, 255, 0.154);
+  font-weight: 600;
+  font-size: 2rem;
+  padding: 5px;
+  width: fit-content;
+  margin: auto;
+}
+
+.chart-data-and-labels-conatiner{
+  display: flex;
+  justify-content: start;
+}

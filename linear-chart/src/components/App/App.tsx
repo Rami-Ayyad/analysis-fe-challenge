@@ -9,9 +9,13 @@ import SelectCountry from '../SelectCountry/SelectCountry';
 import SelectCamp from '../SelectCamp/SelectCamp'
 import SelecSchool from '../SelectSchool/SelectSchool'
 import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners'
+import LineChart from '../LineChart/LineChart';
+import Spinner from '../Spinner/Spinner'
+//configuration for the chart
 ChartJS.register(...registerables)
 
-const App: React.FC = () => {
+
+const App:React.FC = () => {
 
   const dispatch = useDispatch()
 
@@ -24,23 +28,25 @@ const App: React.FC = () => {
   const selectedSchool = useSelector((state: any) => state.chartData.selectedSchool)
   // console.log(selectedCountry,selectedCamp,selectedSchool)
 
-  const chartDataState = useSelector((state: any) => state.chartData)
+  const isLoading = useSelector((state: any) => state.chartData.isLoading)
+  const dataFromAPI = useSelector((state: any) => state.chartData.dataFromAPI)
+  const errorFromAPI = useSelector((state: any) => state.chartData.error)
 
   //uniqe Arrays for Countries, Camps, and Schools.
-  const uniqueCountryNames = chartDataState.chartData
+  const uniqueCountryNames = dataFromAPI
     .map((dataObj: any) => dataObj.country)
     .filter((countryName: any, index: any, arr: any) => {
       return arr.indexOf(countryName) === index;
     })
 
 
-  const uniqueCampNames = chartDataState.chartData
+  const uniqueCampNames = dataFromAPI
     .map((dataObj: any) => dataObj.camp)
     .filter((campName: any, index: any, arr: any) => {
       return arr.indexOf(campName) === index;
     })
 
-  const uniqueSchoolNames = chartDataState.chartData
+  const uniqueSchoolNames = dataFromAPI
     .map((dataObj: any) => dataObj.school)
     .filter((schoolName: any, index: any, arr: any) => {
       return arr.indexOf(schoolName) === index;
@@ -50,13 +56,13 @@ const App: React.FC = () => {
   //Takes data from each select input and uses it filter the whole fetched data from API
   function filterData(chosenCounrty: string, chosenCamp: string, chosenSchool: string,) {
     if (chosenSchool === "Show all") {
-      return chartDataState.chartData.filter((dataObj: any) => (
+      return dataFromAPI.filter((dataObj: any) => (
         dataObj.camp === chosenCamp &&
         dataObj.country === chosenCounrty
       ))
     }
     else {
-      return chartDataState.chartData.filter((dataObj: any) => (
+      return dataFromAPI.filter((dataObj: any) => (
         dataObj.country === chosenCounrty &&
         dataObj.camp === chosenCamp &&
         dataObj.school === chosenSchool
@@ -64,18 +70,7 @@ const App: React.FC = () => {
     }
   }
   let filteredData = filterData(selectedCountry, selectedCamp, selectedSchool)
-  console.log(JSON.stringify(filteredData))
-
-
-  /////////////////////////////////////////////////////////
-  // function zeft() {
-
-  //   return filteredData.map((obj:any)=>{
-
-  //   })
-
-
-  // }console.log(zeft())
+  console.log(filteredData)
 
 
   function lessonsPerMonthForChosenSchool(filteredData: any) {
@@ -97,22 +92,11 @@ const App: React.FC = () => {
       monthsArr.push({ month: prop, lessons: monthsData[prop] });
     }
 
-    //sort by months
-    let Months: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    monthsArr.sort((a: any, b: any) => {
-      return Months.indexOf(a.month) - Months.indexOf(b.month)
-    })
-
-    return monthsArr
-
-
   }
-  let lessonsPerMonthForSchool = lessonsPerMonthForChosenSchool(filteredData)
-  // console.log(lessonsPerMonthForSchool)
 
 
   //Sum of all lessons in a chosen Camp
-  let totalLessons = filteredData.reduce((acc: number, filteredDataObj: any) => acc += filteredDataObj.lessons, 0)
+  let totalLessonsPerCamp = filteredData.reduce((acc: number, filteredDataObj: any) => acc += filteredDataObj.lessons, 0)
   // console.log(totalLessons)
 
 
@@ -132,7 +116,7 @@ const App: React.FC = () => {
     }
     return schoolsArr;
   }
-  let lessonsPerShool = sumOfLesssonsPerSchool(filteredData)
+  let totalLessonsPerShool = sumOfLesssonsPerSchool(filteredData)
 
   // console.log(lessonsPerShool);
 
@@ -140,50 +124,88 @@ const App: React.FC = () => {
 
   // map only existing months to new array and leave non existing months empty
   let Months: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  let mappedMonths: any = []
-  Months.forEach((month: any) => {
-    const item: any = lessonsPerMonthForSchool?.find((item: any) => item?.month === month)
-    if (item) {
-      mappedMonths.push(item)
-    }
-    else {
-      mappedMonths.push({ month: null, lessons: 0 })
-    }
-  })
+  // let monthsWithGaps: any = []
+  // Months.forEach((month: any) => {
+  //   const item: any = lessonsPerMonthForSchool?.find((item: any) => item?.month === month)
+  //   if (item) {
+  //     monthsWithGaps.push(item)
+  //   }
+  //   else {
+  //     monthsWithGaps.push({ month: null, lessons: 0 })
+  //   }
+  // })
   // console.log(mappedMonths)
 
 
 
-  ////////////////////////
-  // let mappedzeft:any = []
-  // filteredData.forEach((data:any)=>{
+  //////////////////////////////
 
-  // })
-  // console.log(mappedzeft)
+  const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  const colors:any = ["DarkViolet","AntiqueWhite","Aqua","Black","Blue","Brown","Chartreuse","CadetBlue","Chocolate","Coral","Crimson","DarkGoldenRod","DarkGreen","DarkOliveGreen","DarkOrange","DarkSalmon","DarkSlateGray","Gray","Olive","Sienna"]
 
+  const lastOutPut:any = {}
 
+  lastOutPut["labels"] = labels
+  lastOutPut["datasets"] = []
+  const schools:any = []
 
+  function getData(lessonsPerMonth:any) {
+    const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    const values:any = []
+    for ( let n = 0 ; n < labels.length; n++) {
+      if (Object.keys(lessonsPerMonth).includes(labels[n])) {
+        let newValue = lessonsPerMonth[labels[n]]!;
+        values.push(newValue);
+      } else {
+        values.push(0);
+      }
+    }
+    return values;
+  }
 
+  function getLessonsByMonth(month:any) {
+    const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    for (let n = 0 ; n < labels.length; n++) {
+      if (labels[n] == month) {
+        return n;
+      }
+    }
+    return 0;
+  }
 
-  const data: any = {
-    labels: Months,
-    datasets:
-      [{
-        label: selectedSchool,
-        data: mappedMonths.map((obj: any) => obj.lessons),//[65, 59, 81, , 55, 40, 30, 56, 45, 23, 95, 51],
-        fill: true,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
+  function getFirstOutput(filteredData:any, schools:any, lastOutPut:any, colors:any) {
+
+    for(let i = 0 ;i < filteredData.length ; i++) {
+      if(!schools.includes(filteredData[i]["school"] )) {
+        let randomColorIndex = Math.floor((Math.random() * colors.length) + 1)
+
+        lastOutPut["datasets"].push({
+        label: filteredData[i]["school"],
+        data: getData({[filteredData[i]["month"]]:filteredData[i]["lessons"]}),
+        fill: false,
+        borderColor: colors[randomColorIndex],
+        tension: 0.2,
         spanGaps: true,
         borderWidth: "3",
         pointHitRadius: "2",
         pointRadius: "4"
-      }]
-  }
+        })
 
-  const options: any = {
+        schools.push(filteredData[i]["school"])
+      } else {
+        lastOutPut["datasets"].find(
+          (element:any) => element["label"] == filteredData[i]["school"])["data"]
+          [getLessonsByMonth(filteredData[i]["month"])] += filteredData[i]["lessons"]
+      }
+    }
 
+    return lastOutPut
   }
+  const FinalFormatedData = getFirstOutput(filteredData, schools, lastOutPut, colors)
+  console.log(FinalFormatedData)
+
+
+  /////////////////////////////
 
 
   return (
@@ -199,27 +221,27 @@ const App: React.FC = () => {
         <SelecSchool selectOptions={uniqueSchoolNames} />
       </div>
 
+      <div>{errorFromAPI ? <h2 className='api-error-message'>Error: {errorFromAPI}</h2> : null}</div>
+      {isLoading ? <Spinner /> :
+        <div className='chart-data-and-labels-conatiner'>
+          <LineChart finalDataObj={FinalFormatedData}/>
 
-      {<div><BeatLoader size={40} color="rgb(75, 192, 192)" loading={chartDataState.loading} /></div>}
-      {!chartDataState.loading && chartDataState.error ? <h2>Error:{chartDataState.error}</h2> : null}
-      {!chartDataState.loading && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
-        <div>
-          <h5>{selectedSchool === "Select" ? (`Please Select School`) : (`${totalLessons ? totalLessons : `No`} Lessons In ${selectedCamp} `)}</h5>
-          <ul>
-            {
-              totalLessons ? lessonsPerShool.map((dataObj: any) => (
-                <li key={dataObj.school}>{`${dataObj.lessons} Lessons In ${dataObj.school}`}</li>
-              )) : `No Lessons In Selected School`
-            }
-          </ul>
-        </div>
-      ) : null}
+          {!errorFromAPI && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
+            <div>
+              <h5>{selectedSchool === "Select" ? (`Please Select School`) : (`${totalLessonsPerCamp ? totalLessonsPerCamp : `No`} Lessons In ${selectedCamp} `)}</h5>
+              <ul>
+                {
+                  totalLessonsPerCamp ? totalLessonsPerShool.map((dataObj: any) => (
+                    <li key={dataObj.school}>{`${dataObj.lessons} Lessons In ${dataObj.school}`}</li>
+                  )) : `No Lessons In Selected School`
+                }
+              </ul>
+            </div>
+          ) : null}
 
-      {/* {<div><BounceLoader loading={chartDataState.loading}/></div>} */}
-      <div style={{ width: "500px", height: "500px", margin: "auto" }}><Line data={data} options={options} /></div>
-
+        </div>}
     </div>
   );
 }
 
-export default App;
+export default App

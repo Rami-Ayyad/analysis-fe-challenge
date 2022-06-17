@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCamp } from '../features/chartData/chartDataSlice';
-import './SelecCamp.css'
+import './SelectCamp.css'
 
 interface Props {
   selectOptions: string[]
@@ -11,7 +11,7 @@ const SelectCamp = ({ selectOptions }: Props) => {
 
   const dispatch = useDispatch()
   const selectedCamp = useSelector((state: any) => state.chartData.selectedCamp)
-  console.log(selectedCamp)
+ 
 
   return (
     <div>
