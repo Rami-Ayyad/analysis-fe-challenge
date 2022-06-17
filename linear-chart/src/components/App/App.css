@@ -37,6 +37,60 @@ body{
 }
 
 .chart-data-and-labels-conatiner{
-  display: flex;
-  justify-content: start;
+  /* display: flex;
+  justify-content: start; */
+  position: relative;
 }
+
+.total-schools-in-camp{
+  position: absolute;
+  top:50px;
+  right:-10px;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #666666b0;
+  margin: 10px 0;
+}
+
+
+.chart-labels-list{
+  position: absolute;
+  right:2vw;
+  top:110px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  height: 376px;
+  margin: 0;
+  padding:0;
+}
+
+.chart-labels-list-item{
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #666666b0;
+  margin: 10px 0;
+  
+
+}
+
+
+.no-lessons-available{
+  color: rgba(255, 0, 0, 0.794);
+  background-color: rgba(0, 200, 255, 0.154);
+  font-weight: 600;
+  font-size: 2rem;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top:-300px;
+  margin-right: 300px;
+
+  width: fit-content;
+ 
+}
+
+
+
+
+

@@ -39,6 +39,7 @@ const SelectCamp = ({ finalDataObj }: Props) => {
         position: 'right',
         labels: {
           usePointStyle: true,
+          padding:70,
           font: {
             size: 18,
           }
@@ -53,7 +54,7 @@ const SelectCamp = ({ finalDataObj }: Props) => {
 
   return (
     <div className='line-chart-container'>
-      <Line data={data} options={options} />
+      <Line data={data} options={options} style={{width:"80%",}} />
     </div>
   )
 

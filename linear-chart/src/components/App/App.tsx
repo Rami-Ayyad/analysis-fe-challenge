@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChartData } from '../features/chartData/chartDataSlice';
-import { selectCountry, selectCamp, selectSchool } from '../features/chartData/chartDataSlice';
-import { Chart as ChartJS, registerables } from 'chart.js'
-import { Line } from 'react-chartjs-2';
 import SelectCountry from '../SelectCountry/SelectCountry';
 import SelectCamp from '../SelectCamp/SelectCamp'
 import SelecSchool from '../SelectSchool/SelectSchool'
-import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners'
 import LineChart from '../LineChart/LineChart';
 import Spinner from '../Spinner/Spinner'
+import { Chart as ChartJS, registerables } from 'chart.js'
+
 //configuration for the chart
 ChartJS.register(...registerables)
-
 
 const App:React.FC = () => {
 
@@ -73,31 +70,9 @@ const App:React.FC = () => {
   console.log(filteredData)
 
 
-  function lessonsPerMonthForChosenSchool(filteredData: any) {
-    if (selectedSchool === "Show all") return
-    let monthsData: any = {}
-
-    filteredData.forEach((data: any) => {
-      if (data.month in monthsData) {
-        monthsData[data.month] += data.lessons;
-
-      } else {
-        monthsData[data.month] = data.lessons;
-
-      }
-    });
-
-    let monthsArr = [];
-    for (let prop in monthsData) {
-      monthsArr.push({ month: prop, lessons: monthsData[prop] });
-    }
-
-  }
-
-
   //Sum of all lessons in a chosen Camp
   let totalLessonsPerCamp = filteredData.reduce((acc: number, filteredDataObj: any) => acc += filteredDataObj.lessons, 0)
-  // console.log(totalLessons)
+  // console.log(totalLessonsPerCamp)
 
 
   //Sum of all lessons for each school
@@ -117,38 +92,21 @@ const App:React.FC = () => {
     return schoolsArr;
   }
   let totalLessonsPerShool = sumOfLesssonsPerSchool(filteredData)
+  // console.log(totalLessonsPerShool);
 
-  // console.log(lessonsPerShool);
-
-
-
-  // map only existing months to new array and leave non existing months empty
-  let Months: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  // let monthsWithGaps: any = []
-  // Months.forEach((month: any) => {
-  //   const item: any = lessonsPerMonthForSchool?.find((item: any) => item?.month === month)
-  //   if (item) {
-  //     monthsWithGaps.push(item)
-  //   }
-  //   else {
-  //     monthsWithGaps.push({ month: null, lessons: 0 })
-  //   }
-  // })
-  // console.log(mappedMonths)
-
-
-
-  //////////////////////////////
-
+  
   const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-  const colors:any = ["DarkViolet","AntiqueWhite","Aqua","Black","Blue","Brown","Chartreuse","CadetBlue","Chocolate","Coral","Crimson","DarkGoldenRod","DarkGreen","DarkOliveGreen","DarkOrange","DarkSalmon","DarkSlateGray","Gray","Olive","Sienna"]
+
+  const colors:any = ["Aquamarine", "Aqua", "BlueViolet", "Chartreuse", "Crimson", "DarkOrange", "DeepPink", "Gold", "LightSeaGreen", "OrangeRed", "Tomato"]
 
   const lastOutPut:any = {}
 
   lastOutPut["labels"] = labels
   lastOutPut["datasets"] = []
+
   const schools:any = []
 
+  //Used in getLastOutput() & return sum of lessons for each month for each school
   function getData(lessonsPerMonth:any) {
     const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     const values:any = []
@@ -163,6 +121,7 @@ const App:React.FC = () => {
     return values;
   }
 
+  //Used in getLastOutput() & return array of
   function getLessonsByMonth(month:any) {
     const labels:any =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     for (let n = 0 ; n < labels.length; n++) {
@@ -173,7 +132,8 @@ const App:React.FC = () => {
     return 0;
   }
 
-  function getFirstOutput(filteredData:any, schools:any, lastOutPut:any, colors:any) {
+  //Generates the final data={} Obj for the chart
+  function getLastOutput(filteredData:any, schools:any, lastOutPut:any, colors:any) {
 
     for(let i = 0 ;i < filteredData.length ; i++) {
       if(!schools.includes(filteredData[i]["school"] )) {
@@ -188,7 +148,7 @@ const App:React.FC = () => {
         spanGaps: true,
         borderWidth: "3",
         pointHitRadius: "2",
-        pointRadius: "4"
+        pointRadius: "6"
         })
 
         schools.push(filteredData[i]["school"])
@@ -201,16 +161,12 @@ const App:React.FC = () => {
 
     return lastOutPut
   }
-  const FinalFormatedData = getFirstOutput(filteredData, schools, lastOutPut, colors)
+  const FinalFormatedData = getLastOutput(filteredData, schools, lastOutPut, colors)
   console.log(FinalFormatedData)
-
-
-  /////////////////////////////
 
 
   return (
     <div className="App">
-
 
       <h1 className='main-title'>Analysis Chart</h1>
       <h2 className='secondary-title'>Number of Lessons</h2>
@@ -226,14 +182,14 @@ const App:React.FC = () => {
         <div className='chart-data-and-labels-conatiner'>
           <LineChart finalDataObj={FinalFormatedData}/>
 
+          <h5 className='total-schools-in-camp'>{selectedSchool !== "Select" && FinalFormatedData.length ? (`${totalLessonsPerCamp} Lessons In ${selectedCamp}`) :null}</h5>
           {!errorFromAPI && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
-            <div>
-              <h5>{selectedSchool === "Select" ? (`Please Select School`) : (`${totalLessonsPerCamp ? totalLessonsPerCamp : `No`} Lessons In ${selectedCamp} `)}</h5>
-              <ul>
+            <div className='chart-labels-container'>
+              <ul className='chart-labels-list'>
                 {
                   totalLessonsPerCamp ? totalLessonsPerShool.map((dataObj: any) => (
-                    <li key={dataObj.school}>{`${dataObj.lessons} Lessons In ${dataObj.school}`}</li>
-                  )) : `No Lessons In Selected School`
+                    <li className='chart-labels-list-item' key={dataObj.school} ><em>{dataObj.lessons}</em> Lessons In</li>
+                  )) : <h4 className='no-lessons-available'>No Lessons Available In Selected School !</h4>
                 }
               </ul>
             </div>
