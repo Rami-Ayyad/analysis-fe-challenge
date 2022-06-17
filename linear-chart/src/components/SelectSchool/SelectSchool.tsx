@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSchool } from '../features/chartData/chartDataSlice';
+import './SelectSchool.css'
 
 interface Props {
     selectOptions: string[]
@@ -13,8 +14,8 @@ const SelectSchool = ({ selectOptions }: Props) => {
 
     return (
         <div>
-            <label>Select Country
-                <select value={selectedSchool} onChange={e => dispatch<any>(selectSchool(e.currentTarget.value))}>
+            <label className='select-label'>Select School
+                <select className='select-input' value={selectedSchool} onChange={e => dispatch<any>(selectSchool(e.currentTarget.value))}>
                     <option>Select</option>
                     <option>Show all</option>
                     {selectOptions.map((school: string, index: number) => (
@@ -22,7 +23,7 @@ const SelectSchool = ({ selectOptions }: Props) => {
                     ))}
                 </select>
             </label>
-            <div>{selectedSchool === "Select" ? "Please Select Country" : null}</div>
+            <div className='select-warning'>{selectedSchool === "Select" ? "Please Select School" : null}</div>
         </div>
     )
 

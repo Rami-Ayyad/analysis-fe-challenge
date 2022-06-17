@@ -8,10 +8,10 @@ import { Line } from 'react-chartjs-2';
 import SelectCountry from '../SelectCountry/SelectCountry';
 import SelectCamp from '../SelectCamp/SelectCamp'
 import SelecSchool from '../SelectSchool/SelectSchool'
-import {BounceLoader, BarLoader, BeatLoader} from 'react-spinners'
+import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners'
 ChartJS.register(...registerables)
 
-const App:React.FC = () => {
+const App: React.FC = () => {
 
   const dispatch = useDispatch()
 
@@ -19,9 +19,9 @@ const App:React.FC = () => {
     dispatch(fetchChartData())
   }, [])
 
-  const selectedCountry = useSelector((state:any)=> state.chartData.selectedCountry)
-  const selectedCamp = useSelector((state:any)=> state.chartData.selectedCamp)
-  const selectedSchool = useSelector((state:any)=> state.chartData.selectedSchool)
+  const selectedCountry = useSelector((state: any) => state.chartData.selectedCountry)
+  const selectedCamp = useSelector((state: any) => state.chartData.selectedCamp)
+  const selectedSchool = useSelector((state: any) => state.chartData.selectedSchool)
   // console.log(selectedCountry,selectedCamp,selectedSchool)
 
   const chartDataState = useSelector((state: any) => state.chartData)
@@ -64,14 +64,14 @@ const App:React.FC = () => {
     }
   }
   let filteredData = filterData(selectedCountry, selectedCamp, selectedSchool)
-  // console.log(filteredData)
+  console.log(JSON.stringify(filteredData))
 
 
   /////////////////////////////////////////////////////////
   // function zeft() {
-    
+
   //   return filteredData.map((obj:any)=>{
-     
+
   //   })
 
 
@@ -81,14 +81,14 @@ const App:React.FC = () => {
   function lessonsPerMonthForChosenSchool(filteredData: any) {
     if (selectedSchool === "Show all") return
     let monthsData: any = {}
-    
+
     filteredData.forEach((data: any) => {
       if (data.month in monthsData) {
         monthsData[data.month] += data.lessons;
-      
+
       } else {
         monthsData[data.month] = data.lessons;
-     
+
       }
     });
 
@@ -98,13 +98,13 @@ const App:React.FC = () => {
     }
 
     //sort by months
-    let Months:any =['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    monthsArr.sort((a:any,b:any)=> {
+    let Months: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    monthsArr.sort((a: any, b: any) => {
       return Months.indexOf(a.month) - Months.indexOf(b.month)
     })
 
     return monthsArr
-    
+
 
   }
   let lessonsPerMonthForSchool = lessonsPerMonthForChosenSchool(filteredData)
@@ -139,42 +139,45 @@ const App:React.FC = () => {
 
 
   // map only existing months to new array and leave non existing months empty
-  let Months:any =['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  let mappedMonths:any = []
-  Months.forEach((month:any)=>{
-    const item:any = lessonsPerMonthForSchool?.find((item:any)=> item?.month === month)
-    if(item){
+  let Months: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let mappedMonths: any = []
+  Months.forEach((month: any) => {
+    const item: any = lessonsPerMonthForSchool?.find((item: any) => item?.month === month)
+    if (item) {
       mappedMonths.push(item)
     }
-    else{
-      mappedMonths.push({month:null, lessons:0})
+    else {
+      mappedMonths.push({ month: null, lessons: 0 })
     }
   })
   // console.log(mappedMonths)
 
 
 
-////////////////////////
+  ////////////////////////
   // let mappedzeft:any = []
   // filteredData.forEach((data:any)=>{
-    
+
   // })
   // console.log(mappedzeft)
 
-  
 
- 
+
+
 
   const data: any = {
     labels: Months,
     datasets:
       [{
         label: selectedSchool,
-        data:mappedMonths.map((obj:any) => obj.lessons  ),//[65, 59, 81, , 55, 40, 30, 56, 45, 23, 95, 51],
+        data: mappedMonths.map((obj: any) => obj.lessons),//[65, 59, 81, , 55, 40, 30, 56, 45, 23, 95, 51],
         fill: true,
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1,
-        spanGaps:true
+        spanGaps: true,
+        borderWidth: "3",
+        pointHitRadius: "2",
+        pointRadius: "4"
       }]
   }
 
@@ -182,21 +185,22 @@ const App:React.FC = () => {
 
   }
 
-  let numOfSelects = [1,2,3]
 
   return (
     <div className="App">
-      
-
-      <h1>Analysis Chart</h1>
-      <h3>Number of Lessons</h3>
-    
-      <SelectCountry selectOptions={uniqueCountryNames}/>
-      <SelectCamp selectOptions={uniqueCampNames}/>
-      <SelecSchool selectOptions={uniqueSchoolNames}/>
 
 
-      {chartDataState.loading && <div>Loading<BeatLoader loading={chartDataState.loading}/></div>}
+      <h1 className='main-title'>Analysis Chart</h1>
+      <h2 className='secondary-title'>Number of Lessons</h2>
+
+      <div className='selects-container'>
+        <SelectCountry selectOptions={uniqueCountryNames} />
+        <SelectCamp selectOptions={uniqueCampNames} />
+        <SelecSchool selectOptions={uniqueSchoolNames} />
+      </div>
+
+
+      {<div><BeatLoader size={40} color="rgb(75, 192, 192)" loading={chartDataState.loading} /></div>}
       {!chartDataState.loading && chartDataState.error ? <h2>Error:{chartDataState.error}</h2> : null}
       {!chartDataState.loading && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
         <div>
