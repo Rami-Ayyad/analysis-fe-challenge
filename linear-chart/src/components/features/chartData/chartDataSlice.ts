@@ -10,7 +10,11 @@ const initialState = {
     error: '',
     selectedCountry: '',
     selectedCamp: '',
-    selectedSchool: ''
+    selectedSchool: '',
+    pointSchool:'',
+    pointMonth:'',
+    pointLessons:'',
+    
 }
 
 
@@ -35,6 +39,16 @@ const chartDataSlice = <any>createSlice({
         selectSchool: (state, action) => {
             state.selectedSchool = action.payload
         },
+        addPointSchool: (state, action) => {
+            state.pointSchool = action.payload
+        },
+        addPointMonth: (state, action) => {
+            state.pointMonth = action.payload
+        },
+        addPointLessons: (state, action) => {
+            state.pointLessons = action.payload
+        }
+
     },
     extraReducers: builder => {
         builder.addCase(fetchChartData.pending, state => {
@@ -57,4 +71,4 @@ const chartDataSlice = <any>createSlice({
 })
 
 export default chartDataSlice.reducer
-export const { selectCountry, selectCamp, selectSchool } = chartDataSlice.actions
+export const { selectCountry, selectCamp, selectSchool, addPointSchool, addPointMonth, addPointLessons } = chartDataSlice.actions

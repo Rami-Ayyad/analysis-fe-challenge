@@ -5,16 +5,27 @@ import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './components/App/store';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PointsDetails from './components/PointDetails/PointsDetails';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+
+
+          <Route path="/" element={<App />} />
+          <Route path="/point-details" element={<PointsDetails/>} />
+
+
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider >
 );
 
 // If you want to start measuring performance in your app, pass a function
