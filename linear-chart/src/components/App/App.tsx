@@ -137,7 +137,8 @@ const App:React.FC = () => {
 
     for(let i = 0 ;i < filteredData.length ; i++) {
       if(!schools.includes(filteredData[i]["school"] )) {
-        let randomColorIndex = Math.floor((Math.random() * colors.length) + 1)
+        let randomColorIndex = Math.floor((Math.random() * colors.length))
+        console.log(colors.length,randomColorIndex)
 
         lastOutPut["datasets"].push({
         label: filteredData[i]["school"],
