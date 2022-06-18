@@ -7,6 +7,9 @@
 - ReactJS,  React-Redux-Toolkit,  Reacr-Router v6,  Axios
 - React-Chart-JS,  React-Spinners,  React-CountUp.
 
+## Live Demo :
+https://62ae4805ade8734b2879de9c--analysis-chart-challenge.netlify.app/
+
 ## Features :
 - #### A loading indicator is displayed while fetching data.
 ![screenShoot](screen-shoots/Loading.PNG)
