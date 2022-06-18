@@ -8,23 +8,23 @@ The data is displayed based on the user selection of desired Country, Camp, and 
 
 ## Features :
 - A loading indicator is displayed while fetching data.
-![screen-shoots](Loading.PNG)
+![screenShoot](screen-shoots/Loading.PNG)
 screen-shoots
 - An error message is displayed when something goes wrong while fetching data.
-![screen-shoots](Network error.PNG)
+![screenShoot](screen-shoots/Networkerror.PNG)
 - A warning message is displayed if an input is left unselected.
-![screen-shoots](select warning.PNG)
+![screenShoot](screen-shoots/selectwarning.PNG)
 - A message is displayed if no Lessons are available in a selected school.
-![screen-shoots](Ne lessons msg.PNG)
+![screenShoot](screen-shoots/Ne lessonsmsg.PNG)
 - A 'Show all' option that shows all the schools available with distinct a color for each school.
-![screen-shoots](show all.PNG)
+![screenShoot](screen-shoots/showall.PNG)
 - Clicking the colored circles right of the chart toggles the visibility of clicked school on the chart.
-![screen-shoots](toggle data on and off.PNG)
+![screenShoot](screen-shoots/toggledataonand off.PNG)
 - Hovering over any point in the chart shows a tooltip that contains some info about that specific point in the chart.
-![screen-shoots](point.PNG)
+![screenShoot](screen-shoots/point.PNG)
 - Clicking any point in the chart navigates the user to a details page that displays more info about that specific point.
 - Details page has a back button that takes the user to the chart again without changing or reseting his previous selection.
-![screen-shoots](Point details.PNG)
+![screenShoot](screen-shoots/Pointdetails.PNG)
 
 ## Notes :
 - Data is fetched from a raw JSON file hosted on GitHub.
