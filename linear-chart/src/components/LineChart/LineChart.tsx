@@ -67,6 +67,7 @@ const SelectCamp = ({ finalDataObj }: Props) => {
     const { datasetIndex, index } = element[0];
     dispatch(addPointMonth(data.labels[index]))
     dispatch(addPointLessons(data.datasets[datasetIndex].data[index])) 
+    return datasetIndex
   };
 
 
@@ -79,10 +80,12 @@ const SelectCamp = ({ finalDataObj }: Props) => {
       return;
     }
 
-    printDatasetAtEvent(getDatasetAtEvent(chart, event));
-    printElementAtEvent(getElementAtEvent(chart, event));
+     printDatasetAtEvent(getDatasetAtEvent(chart, event));
+     const index:any = printElementAtEvent(getElementAtEvent(chart, event));
 
-    navigate('../point-details', { replace: false })
+    if(index >= 0) {
+      navigate('/point-details',{ replace: false })
+    }
 
 
   };
