@@ -105,11 +105,6 @@ const SelectCamp = ({ finalDataObj }: Props) => {
   return (
     <div className='line-chart-container'>
       <Line data={data} options={options} style={{width:"80%",}} ref={chartRef} onClick={onClick} />
-      {<div>{selectedCamp} -
-      {selectedCountry} -
-      {pointSchool} -
-      {pointMonth} -
-      {pointLessons}</div>}
     </div>
   )
 

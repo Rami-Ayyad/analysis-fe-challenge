@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import './PointDetails.css'
+import CountUp from 'react-countup'
 
 interface Props {
 }
@@ -33,7 +34,7 @@ const PointsDetails = () => {
         <li>Camp : <span>{selectedCamp}</span></li>
         <li>School : <span>{pointSchool}</span></li>
         <li>Month : <span>{pointMonth}</span></li>
-        <li>Lessons : <span>{pointLessons}</span></li>
+        <li>Lessons : <span><CountUp end={pointLessons}/></span></li>
 
       </ul>
     </div>

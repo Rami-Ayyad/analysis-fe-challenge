@@ -7,6 +7,7 @@ import SelectCamp from '../SelectCamp/SelectCamp'
 import SelecSchool from '../SelectSchool/SelectSchool'
 import LineChart from '../LineChart/LineChart';
 import Spinner from '../Spinner/Spinner'
+import CountUp from 'react-countup';
 import { Chart as ChartJS, registerables } from 'chart.js'
 
 //configuration for the chart
@@ -183,13 +184,13 @@ const App:React.FC = () => {
         <div className='chart-data-and-labels-conatiner'>
           <LineChart finalDataObj={FinalFormatedData}/>
 
-          <h5 className='total-schools-in-camp'>{selectedSchool !== "Select" && FinalFormatedData.length ? (`${totalLessonsPerCamp} Lessons In ${selectedCamp}`) :null}</h5>
+          <h5 className='total-schools-in-camp'>{(selectedSchool !== "Select" && filteredData.length > 0) ? (`${totalLessonsPerCamp} Lessons In ${selectedCamp}`) :null}</h5>
           {!errorFromAPI && (selectedSchool !== "Select" && selectedCamp !== "Select" && selectedCountry !== "Select") ? (
             <div className='chart-labels-container'>
               <ul className='chart-labels-list'>
                 {
                   totalLessonsPerCamp ? totalLessonsPerShool.map((dataObj: any) => (
-                    <li className='chart-labels-list-item' key={dataObj.school} ><em>{dataObj.lessons}</em> Lessons In</li>
+                    <li className='chart-labels-list-item' key={dataObj.school} ><em>{<CountUp end={dataObj.lessons}/>}</em> Lessons In</li>
                   )) : <h4 className='no-lessons-available'>No Lessons Available In Selected School !</h4>
                 }
               </ul>
