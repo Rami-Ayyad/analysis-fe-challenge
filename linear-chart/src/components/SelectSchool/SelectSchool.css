@@ -1,21 +1,21 @@
-.select-label{
-    color:#9b9b9f;
+.select-label {
+    color: #9b9b9f;
     font-weight: 600;
-    
+
 }
 
-.select-input{
+.select-input {
     margin-left: 5px;
     height: 35px;
-    width:15vw;
+    width: 15vw;
     color: #41414196;
     font-weight: 600;
     border-color: #67c3fc;
-    background-color:#8DD0FA;
+    background-color: #8DD0FA;
     outline-color: #67c3fc;
 }
 
-.select-warning{
+.select-warning {
     font-weight: 600;
-    color:rgb(171, 59, 59);
+    color: rgb(171, 59, 59);
 }

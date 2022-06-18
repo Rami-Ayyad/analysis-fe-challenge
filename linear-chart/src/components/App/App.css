@@ -1,34 +1,34 @@
-body{
+body {
   box-sizing: border-box;
   margin: 0;
   padding: 10px 40px;
   background-color: #F5F6FA;
 }
 
-.App{
+.App {
   background-color: #F5F6FA;
 }
 
-.main-title{
-  color:#8A5EA9;
+.main-title {
+  color: #8A5EA9;
   font-weight: 400;
 }
 
-.secondary-title{
-  color:#8A5EA9;
+.secondary-title {
+  color: #8A5EA9;
   font-weight: 400;
 }
 
 
 
-.selects-container{
+.selects-container {
   display: flex;
   justify-content: space-between;
-  margin:20px 0;
+  margin: 20px 0;
 }
 
 
-.api-error-message{
+.api-error-message {
   color: rgba(255, 0, 0, 0.794);
   background-color: rgba(0, 200, 255, 0.154);
   font-weight: 600;
@@ -38,16 +38,16 @@ body{
   margin: auto;
 }
 
-.chart-data-and-labels-conatiner{
+.chart-data-and-labels-conatiner {
   /* display: flex;
   justify-content: start; */
   position: relative;
 }
 
-.total-schools-in-camp{
+.total-schools-in-camp {
   position: absolute;
-  top:50px;
-  right:-10px;
+  top: 50px;
+  right: -10px;
   font-weight: 500;
   font-size: 1.5rem;
   color: #666666b0;
@@ -55,44 +55,39 @@ body{
 }
 
 
-.chart-labels-list{
+.chart-labels-list {
   position: absolute;
-  right:2vw;
-  top:110px;
+  right: 2vw;
+  top: 110px;
   list-style: none;
   display: flex;
   flex-direction: column;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   height: 376px;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
-.chart-labels-list-item{
+.chart-labels-list-item {
   font-weight: 400;
   font-size: 1.5rem;
   color: #666666b0;
   margin: 10px 0;
-  
+
 
 }
 
 
-.no-lessons-available{
+.no-lessons-available {
   color: rgba(255, 0, 0, 0.794);
   background-color: rgba(0, 200, 255, 0.154);
   font-weight: 600;
   font-size: 2rem;
   padding: 5px;
   border-radius: 5px;
-  margin-top:-300px;
+  margin-top: -300px;
   margin-right: 300px;
 
   width: fit-content;
- 
+
 }
-
-
-
-
-

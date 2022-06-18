@@ -6,14 +6,14 @@ import CountUp from 'react-countup'
 interface Props {
 }
 
-const PointsDetails = () => {
+const PointsDetails: React.FC = () => {
 
 
-  const selectedCamp = useSelector((state: any) => state.chartData.selectedCamp)
-  const selectedCountry = useSelector((state: any) => state.chartData.selectedCountry)
-  const pointSchool = useSelector((state: any) => state.chartData.pointSchool)
-  const pointMonth = useSelector((state: any) => state.chartData.pointMonth)
-  const pointLessons = useSelector((state: any) => state.chartData.pointLessons)
+  const selectedCamp: string = useSelector((state: any) => state.chartData.selectedCamp)
+  const selectedCountry: string = useSelector((state: any) => state.chartData.selectedCountry)
+  const pointSchool: string = useSelector((state: any) => state.chartData.pointSchool)
+  const pointMonth: string = useSelector((state: any) => state.chartData.pointMonth)
+  const pointLessons: number = useSelector((state: any) => state.chartData.pointLessons)
 
   let navigate = useNavigate();
   function back() {
@@ -34,7 +34,7 @@ const PointsDetails = () => {
         <li>Camp : <span>{selectedCamp}</span></li>
         <li>School : <span>{pointSchool}</span></li>
         <li>Month : <span>{pointMonth}</span></li>
-        <li>Lessons : <span><CountUp end={pointLessons}/></span></li>
+        <li>Lessons : <span><CountUp end={pointLessons} /></span></li>
 
       </ul>
     </div>

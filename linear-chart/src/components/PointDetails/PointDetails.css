@@ -1,6 +1,4 @@
-.pont-dtails-container{
-
-}
+.pont-dtails-container {}
 
 header {
     display: flex;
@@ -8,8 +6,8 @@ header {
     background-color: #8DD0FA;
 }
 
-h1{
-    color:#8A5EA9;
+h1 {
+    color: #8A5EA9;
 }
 
 header button {
@@ -19,7 +17,7 @@ header button {
     font-size: 20px;
     font-weight: 400;
     height: 30px;
-    margin:5px 20px;
+    margin: 5px 20px;
     margin-top: 10px;
     border-radius: 5px;
     border: 2px solid white;
@@ -32,22 +30,22 @@ header button:hover {
     border: 2px solid #8A5EA9;
 }
 
-.pont-dtails-list{
+.pont-dtails-list {
     list-style: none;
     margin: 0;
     padding: 0;
 
 }
 
-.pont-dtails-list li{
+.pont-dtails-list li {
     font-size: 36px;
     font-weight: 600;
     color: brown;
     margin-top: 10px;
-    border-bottom: 2px solid #8A5EA9 ;
+    border-bottom: 2px solid #8A5EA9;
 }
 
-span{
+span {
     font-style: italic;
     color: #584367;
 

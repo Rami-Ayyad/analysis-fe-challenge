@@ -10,8 +10,8 @@ interface Props {
 const SelectCamp = ({ selectOptions }: Props) => {
 
   const dispatch = useDispatch()
-  const selectedCamp = useSelector((state: any) => state.chartData.selectedCamp)
- 
+  const selectedCamp: string = useSelector((state: any) => state.chartData.selectedCamp)
+
 
   return (
     <div>

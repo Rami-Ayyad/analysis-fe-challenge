@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCountry} from '../features/chartData/chartDataSlice';
+import { selectCountry } from '../features/chartData/chartDataSlice';
 import './SelectCountry.css'
 interface Props {
   selectOptions: string[]
@@ -9,7 +9,7 @@ interface Props {
 const SelectCountry = ({ selectOptions }: Props) => {
 
   const dispatch = useDispatch()
-  const selectedCountry = useSelector((state: any) => state.chartData.selectedCountry)
+  const selectedCountry: string = useSelector((state: any) => state.chartData.selectedCountry)
 
   return (
     <div>

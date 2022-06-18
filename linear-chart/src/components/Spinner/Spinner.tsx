@@ -4,13 +4,13 @@ import { BeatLoader } from 'react-spinners'
 import './Spinner.css'
 
 interface Props {
-    
+
 }
 
-const SelectCamp = ({  }: Props) => {
+const SelectCamp: React.FC = () => {
 
     const dispatch = useDispatch()
-    const isLoading = useSelector((state: any) => state.chartData.isLoading)
+    const isLoading: boolean = useSelector((state: any) => state.chartData.isLoading)
 
     return (
 

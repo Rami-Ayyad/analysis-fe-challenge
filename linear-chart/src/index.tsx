@@ -17,10 +17,8 @@ root.render(
       <BrowserRouter>
         <Routes>
 
-
           <Route path="/" element={<App />} />
-          <Route path="/point-details" element={<PointsDetails/>} />
-
+          <Route path="/point-details" element={<PointsDetails />} />
 
         </Routes>
       </BrowserRouter>
