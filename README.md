@@ -36,7 +36,7 @@ screen-shoots
 - The given data had 2 different number of lessons at the same month for the same school, my solution was to add them together to get 1 number of lessons for each month for same school.
 - UI is not fully responsive as it wasn't my main focus during the the givin time .
 - The same color may appear for two different data on the chart because colors are randomly generated and some times same number gets generated for 2 different charts.
-- 'Prerrier' was used for code formating.
+- 'Prettier' was used for code formating.
 - TypeScript and Testing are two areas where i'm still improving and learning, so please excuse any shortcomings and unmet requirements that i wasn't able to completely fulfill during the given time.
 
 
