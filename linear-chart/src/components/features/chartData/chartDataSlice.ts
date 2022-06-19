@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { AsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import build from "react-countup"
-import { State } from "../../interfaces/interfaces"
+import { State } from "../../../interfaces/interfaces"
 
 
 const initialState: State = {

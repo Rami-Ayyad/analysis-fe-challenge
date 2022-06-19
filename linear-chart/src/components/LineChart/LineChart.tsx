@@ -5,7 +5,7 @@ import { getDatasetAtEvent, getElementAtEvent, Line } from 'react-chartjs-2';
 import { addPointSchool, addPointMonth, addPointLessons } from '../features/chartData/chartDataSlice';
 import { useNavigate } from "react-router-dom"
 import './LineChart.css'
-import { LastOutPut } from "../interfaces/interfaces"
+import { LastOutPut } from "../../interfaces/interfaces"
 
 //Configuration for the chart to work
 ChartJS.register(...registerables)
