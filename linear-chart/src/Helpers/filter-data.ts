@@ -1,6 +1,11 @@
 import { Data } from "../interfaces/interfaces";
 
-export const getFilteredData = (dataFromAPI: any, chosenCounrty: string, chosenCamp: string, chosenSchool: string,) => {
+export const getFilteredData = (
+    dataFromAPI: Data[],
+    chosenCounrty: string,
+    chosenCamp: string,
+    chosenSchool: string,):Data[] => {
+        
     if (chosenSchool === "Show all") {
         return dataFromAPI.filter((dataObj: Data) => (
             dataObj.camp === chosenCamp &&

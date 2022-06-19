@@ -20,6 +20,8 @@ export interface Data {
 }
 
 export interface SchoolsData {
+    includes:( string | undefined),
+    push:( string | undefined),
     school: string,
     lessons: number
 }

@@ -1,6 +1,7 @@
-import { InteractionItem } from "chart.js";
+import { ChartType, InteractionItem } from "chart.js";
+import { LastOutPut } from "../../interfaces/interfaces";
 
-const options:any = {
+const options:any= {
     scales: {
         y: {
             beginAtZero: true,
@@ -30,7 +31,7 @@ const options:any = {
 }
 
 // used to get shool name of clicked point
-const printDatasetAtEvent = (data: any, dataset: InteractionItem[]) => {
+const printDatasetAtEvent = (data: LastOutPut, dataset: InteractionItem[]):string|undefined => {
     if (!dataset.length) return;
     const datasetIndex = dataset[0].datasetIndex;
     const schoolName = data.datasets[datasetIndex].label;
@@ -38,8 +39,10 @@ const printDatasetAtEvent = (data: any, dataset: InteractionItem[]) => {
 };
 
 // used get month and no. of lessons at clicked point
-const printElementAtEvent = (data: any, element: InteractionItem[]) => {
-    if (!element.length) return;
+const printElementAtEvent = (data: LastOutPut, element: InteractionItem[]):undefined|(string|number)[] => {
+    if (!element.length) {
+        return
+    }
 
     const { datasetIndex, index } = element[0];
     const month: string = data.labels[index]

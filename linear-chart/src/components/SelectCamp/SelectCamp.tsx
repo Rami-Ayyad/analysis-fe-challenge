@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../services/store';
 import { selectCamp } from '../features/chartData/chartDataSlice';
 import './SelectCamp.css'
 
@@ -7,16 +8,16 @@ interface Props {
   selectOptions: string[]
 }
 
-const SelectCamp = ({ selectOptions }: Props) => {
+const SelectCamp:React.FC<Props> = ({ selectOptions }: Props):ReactElement => {
 
   const dispatch = useDispatch()
-  const selectedCamp: string = useSelector((state: any) => state.chartData.selectedCamp)
+  const selectedCamp: string = useSelector((state: RootState) => state.chartData.selectedCamp)
 
 
   return (
     <div>
       <label className='select-label'>Select Camp
-        <select className='select-input' value={selectedCamp} onChange={e => dispatch<any>(selectCamp(e.currentTarget.value))}>
+        <select className='select-input' value={selectedCamp} onChange={e => dispatch(selectCamp(e.currentTarget.value))}>
           <option>Select</option>
           {selectOptions.map((camp: string, index: number) => (
             <option key={index}>{camp}</option>

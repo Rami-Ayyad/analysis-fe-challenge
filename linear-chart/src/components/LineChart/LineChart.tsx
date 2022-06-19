@@ -26,14 +26,14 @@ const SelectCamp:React.FC<Props> = ({ finalDataObj }: Props):ReactElement => {
 
   const chartRef = useRef(null);
 
-  const handlePintClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+  const handlePintClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>):undefined => {
 
     if (!chartRef.current) { return }
 
-    const schoolName = printDatasetAtEvent(data, getDatasetAtEvent(chartRef.current, event));
+    const schoolName:string|undefined = printDatasetAtEvent(data, getDatasetAtEvent(chartRef.current, event));
     dispatch(addPointSchool(schoolName))
 
-    const [month, lessons, index]:any = printElementAtEvent(data, getElementAtEvent(chartRef.current, event));
+    const [month, lessons, index]:undefined|(string|number)[]|any = printElementAtEvent(data, getElementAtEvent(chartRef.current, event));
     dispatch(addPointMonth(month))
     dispatch(addPointLessons(lessons))
 

@@ -76,8 +76,8 @@ const App: React.FC = (): ReactElement => {
             <div className='chart-labels-container'>
               <ul className='chart-labels-list'>
                 {
-                  totalLessonsPerCamp ? totalLessonsPerShool.map((dataObj: any) => (
-                    <li className='chart-labels-list-item' key={dataObj.school} ><em>{<CountUp end={dataObj.lessons} />}</em> Lessons In</li>
+                  totalLessonsPerCamp ? totalLessonsPerShool.map((dataObj: Data) => (
+                    <li className='chart-labels-list-item' key={dataObj.school} ><em>{<CountUp end={dataObj.lessons!} />}</em> Lessons In</li>
                   )) : <h4 className='no-lessons-available'>No Lessons Available In Selected School !</h4>
                 }
               </ul>

@@ -2,19 +2,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import './PointDetails.css'
 import CountUp from 'react-countup'
+import { ReactElement } from 'react'
+import { RootState } from '../../services/store'
 
 interface Props {
 }
 
-const PointsDetails: React.FC = () => {
+const PointsDetails: React.FC = ():ReactElement => {
 
   const { selectedCamp, selectedCountry, pointSchool,
-    pointMonth, pointLessons } = useSelector((state: any) => state.chartData)
+    pointMonth, pointLessons } = useSelector((state: RootState) => state.chartData)
 
 
   const navigate = useNavigate();
 
-  const back = () => {
+  const back = ():void => {
     navigate(-1)
   }
 

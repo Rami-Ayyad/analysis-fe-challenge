@@ -1,19 +1,11 @@
-import { Data, LastOutPut } from "../interfaces/interfaces"
+import { Data, LastOutPut, SchoolsData } from "../interfaces/interfaces"
 
-
-
-// const monthsArr: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-// const colorsArr: string[] = ["Aquamarine", "Aqua", "BlueViolet", "Chartreuse", "Crimson", "DarkOrange", "DeepPink", "Gold", "LightSeaGreen", "OrangeRed", "Tomato"]
-
-// const displayableChartData: LastOutPut | any = {}
-
-// displayableChartData["labels"] = monthsArr
-// displayableChartData["datasets"] = []
-
-// const schools: string[] = []
+interface LessonsPerMonth {
+    month:number
+}
 
 //Used in getDisplayableChartData(), returns arr with found lessons and 0s in empty months
-function getExistingLessonsPerMonth(lessonsPerMonth: any) {
+function getExistingLessonsPerMonth(lessonsPerMonth: any):(number|string)[] {
     const monthsArr: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     const existingLessons: string | number[] = []
@@ -41,7 +33,7 @@ function getIndexOfMonth(month: string) {
 }
 
 //Generates the final data={} Obj for the chart
-export function getDisplayableChartData(filteredData: Data | any,schools:any,displayableChartData:any,colorsArr:any,monthsArr:any) {
+export function getDisplayableChartData(filteredData: Data[]|any,schools:string[],displayableChartData:LastOutPut[]|any,colorsArr:string[],monthsArr:string[]) {
     
     for (let i = 0; i < filteredData.length; i++) {
         if (!schools.includes(filteredData[i]["school"])) {

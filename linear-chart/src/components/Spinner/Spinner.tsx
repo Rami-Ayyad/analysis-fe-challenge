@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners'
+import { RootState } from '../../services/store';
 import './Spinner.css'
 
 interface Props {
 
 }
 
-const SelectCamp: React.FC = () => {
+const SelectCamp: React.FC = ():ReactElement => {
 
     const dispatch = useDispatch()
-    const isLoading: boolean = useSelector((state: any) => state.chartData.isLoading)
+    const isLoading: boolean = useSelector((state: RootState) => state.chartData.isLoading)
 
     return (
 
