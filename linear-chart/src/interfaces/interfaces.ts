@@ -1,7 +1,7 @@
 export interface State {
     isLoading: boolean,
-    dataFromAPI: string | unknown[],
-    error: string | undefined,
+    dataFromAPI: Data [],
+    errorFromAPI: string ,
     selectedCountry: string,
     selectedCamp: string,
     selectedSchool: string,
@@ -11,39 +11,33 @@ export interface State {
 };
 
 export interface Data {
-    id: string,
-    month: string,
-    camp: string,
-    country: string,
-    school: string,
-    lessons: number
+    id?: string,
+    month?: string,
+    camp?: string,
+    country?: string,
+    school?: string,
+    lessons?: number
 }
-
 
 export interface SchoolsData {
     school: string,
     lessons: number
 }
 
+interface Datasets {
+    borderColor: string
+    borderWidth: string
+    data: number[]
+    fill: false
+    label: string
+    pointHitRadius: string
+    pointRadius: string
+    spanGaps: boolean
+    tension: number
+}
 
 export interface LastOutPut {
-    
     labels:string[],
-    datasets:
-     [
-        {
-            borderColor: string
-            borderWidth: string
-            data: number[]
-            fill: false
-            label: string
-            pointHitRadius: string
-            pointRadius: string
-            spanGaps: boolean
-            tension: number
-        }
-
-    ],
-    
+    datasets:Datasets[],
     
 }

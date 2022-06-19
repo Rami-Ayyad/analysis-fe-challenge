@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './components/App/store';
+import store from './services/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PointsDetails from './Pages/PointDetails/PointsDetails';
 

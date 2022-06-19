@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, ReactElement, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Chart as ChartJS, InteractionItem, registerables } from 'chart.js'
 import { getDatasetAtEvent, getElementAtEvent, Line } from 'react-chartjs-2';
@@ -9,31 +9,31 @@ import { LastOutPut } from "../../interfaces/interfaces"
 import { options, printDatasetAtEvent, printElementAtEvent } from './LineChartLogic';
 
 //Configuration for the chart to work
-// ChartJS.register(...registerables)
+ChartJS.register(...registerables)
 
 interface Props {
-  finalDataObj: LastOutPut,
+  finalDataObj: LastOutPut[],
 }
 
-const SelectCamp = ({ finalDataObj }: Props) => {
+const SelectCamp:React.FC<Props> = ({ finalDataObj }: Props):ReactElement => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const data: LastOutPut | any = finalDataObj
+  const data: LastOutPut|any = finalDataObj
 
 
 
-  const chartRef: any = useRef<ChartJS>(null);
+  const chartRef = useRef(null);
 
-  const handlePintClick = (event: any) => {
+  const handlePintClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
 
     if (!chartRef.current) { return }
 
     const schoolName = printDatasetAtEvent(data, getDatasetAtEvent(chartRef.current, event));
     dispatch(addPointSchool(schoolName))
 
-    const [month, lessons, index]: any = printElementAtEvent(data, getElementAtEvent(chartRef.current, event));
+    const [month, lessons, index]:any = printElementAtEvent(data, getElementAtEvent(chartRef.current, event));
     dispatch(addPointMonth(month))
     dispatch(addPointLessons(lessons))
 

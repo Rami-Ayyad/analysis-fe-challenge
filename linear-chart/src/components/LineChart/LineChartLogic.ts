@@ -1,9 +1,6 @@
 import { InteractionItem } from "chart.js";
-import { useDispatch } from "react-redux";
-import { addPointLessons, addPointMonth, addPointSchool } from "../features/chartData/chartDataSlice";
 
-
-const options: any = {
+const options:any = {
     scales: {
         y: {
             beginAtZero: true,

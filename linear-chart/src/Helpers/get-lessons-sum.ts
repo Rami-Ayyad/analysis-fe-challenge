@@ -1,17 +1,17 @@
 import { Data, SchoolsData } from "../interfaces/interfaces"
 
-const getTotalLessonsPerCamp = (filteredData: any) => {
+const getTotalLessonsPerCamp = (filteredData: Data[]) => {
     return filteredData
-        .reduce((acc: number, filteredDataObj: Data) => acc += filteredDataObj.lessons, 0)
+        .reduce((acc: number, filteredDataObj: Data) => acc += filteredDataObj.lessons!, 0)
 };
 
-const getTotalLessonsPerSchool = (filteredData: any) => {
+const getTotalLessonsPerSchool = (filteredData: Data[]) => {
     let schoolsData: SchoolsData | any = {}
     filteredData.forEach((data: Data) => {
-        if (data.school in schoolsData) {
-            schoolsData[data.school] += data.lessons;
+        if (data.school! in schoolsData) {
+            schoolsData[data.school!] += data.lessons;
         } else {
-            schoolsData[data.school] = data.lessons;
+            schoolsData[data.school!] = data.lessons;
         }
     })
 
