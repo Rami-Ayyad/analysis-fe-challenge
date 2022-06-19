@@ -22,107 +22,33 @@ const App: React.FC = () => {
     dispatch(fetchChartData())
   }, [])
 
-
-
   //state from store
-  const {selectedCountry, selectedCamp, selectedSchool, isLoading, dataFromAPI, errorFromAPI } =
-  useSelector((state:any) => state.chartData)
+  const { selectedCountry, selectedCamp, selectedSchool, isLoading, dataFromAPI, errorFromAPI } =
+    useSelector((state: any) => state.chartData)
 
-  const uniqueCountryNames:string[] = getUniqueCountryNames(dataFromAPI)
-  const uniqueCampNames:string[] = getUniqueCampNames(dataFromAPI)
+  const uniqueCountryNames: string[] = getUniqueCountryNames(dataFromAPI)
+  const uniqueCampNames: string[] = getUniqueCampNames(dataFromAPI)
   const uniqueSchoolNames: string[] = getUniqueSchoolNames(dataFromAPI)
 
   //filter data based on user selections
-  const filteredData = getFilteredData(dataFromAPI ,selectedCountry, selectedCamp, selectedSchool)
-  
+  const filteredData = getFilteredData(dataFromAPI, selectedCountry, selectedCamp, selectedSchool)
+
   //Sum of all lessons in a chosen Camp
   const totalLessonsPerCamp: SchoolsData[] = getTotalLessonsPerCamp(filteredData)
 
   //Sum of all lessons for chosen school
   const totalLessonsPerShool = getTotalLessonsPerSchool(filteredData)
 
+  //creating an object that the chart would accept to display data
   const monthsArr: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const colorsArr: string[] = ["Aquamarine", "Aqua", "BlueViolet", "Chartreuse", "Crimson", "DarkOrange", "DeepPink", "Gold", "LightSeaGreen", "OrangeRed", "Tomato"]
+  const colorsArr: string[] = ["Aquamarine", "Aqua", "BlueViolet", "Chartreuse", "Crimson", "DarkOrange", "DeepPink", "Gold", "LightSeaGreen", "OrangeRed", "Tomato"]
+  const schools: string[] = []
 
-const displayableChartData: LastOutPut | any = {}
+  const displayableChartData: LastOutPut | any = {}
+  displayableChartData["labels"] = monthsArr
+  displayableChartData["datasets"] = []
 
-displayableChartData["labels"] = monthsArr
-displayableChartData["datasets"] = []
-
-const schools: string[] = []
-  const FinalFormatedData2 = getDisplayableChartData(filteredData, schools, displayableChartData,colorsArr,monthsArr)
-  console.log(FinalFormatedData2)
- 
- 
-
-
-  // const labels: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  // const colors: string[] = ["Aquamarine", "Aqua", "BlueViolet", "Chartreuse", "Crimson", "DarkOrange", "DeepPink", "Gold", "LightSeaGreen", "OrangeRed", "Tomato"]
-
-  // const lastOutPut: LastOutPut | any = {}
-
-  // lastOutPut["labels"] = labels
-  // lastOutPut["datasets"] = []
-
-  // const schools: string[] = []
-
-  // //Used in getLastOutput() & return sum of lessons for each month for each school
-  // function getData(lessonsPerMonth: any) {
-  //   const labels: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  //   const values: string | number[] = []
-  //   for (let n = 0; n < labels.length; n++) {
-  //     if (Object.keys(lessonsPerMonth).includes(labels[n])) {
-  //       let newValue = lessonsPerMonth[labels[n]]!;
-  //       values.push(newValue);
-  //     } else {
-  //       values.push(0);
-  //     }
-  //   }
-  //   return values;
-  // }
-
-  // //Used in getLastOutput() & return array of
-  // function getLessonsByMonth(month: string) {
-  //   const labels: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  //   for (let n = 0; n < labels.length; n++) {
-  //     if (labels[n] == month) {
-  //       return n;
-  //     }
-  //   }
-  //   return 0;
-  // }
-
-  // //Generates the final data={} Obj for the chart
-  // function getLastOutput(filteredData: Data | any) {
-
-  //   for (let i = 0; i < filteredData.length; i++) {
-  //     if (!schools.includes(filteredData[i]["school"])) {
-  //       let randomColorIndex = Math.floor((Math.random() * colors.length))
-       
-  //       lastOutPut["datasets"].push({
-  //         label: filteredData[i]["school"],
-  //         data: getData({ [filteredData[i]["month"]]: filteredData[i]["lessons"] }),
-  //         fill: false,
-  //         borderColor: colors[randomColorIndex],
-  //         tension: 0.2,
-  //         spanGaps: true,
-  //         borderWidth: "3",
-  //         pointHitRadius: "2",
-  //         pointRadius: "6"
-  //       })
-
-  //       schools.push(filteredData[i]["school"])
-  //     } else {
-  //       lastOutPut["datasets"].find(
-  //         (element: LastOutPut | any) => element["label"] == filteredData[i]["school"])["data"]
-  //       [getLessonsByMonth(filteredData[i]["month"])] += filteredData[i]["lessons"]
-  //     }
-  //   }
-
-  //   return lastOutPut
-  // }
-  // const FinalFormatedData: LastOutPut = getLastOutput(filteredData)
-  // console.log(FinalFormatedData)
+  const FinalFormatedData2 = getDisplayableChartData(filteredData, schools, displayableChartData, colorsArr, monthsArr)
 
   return (
     <div className="App">

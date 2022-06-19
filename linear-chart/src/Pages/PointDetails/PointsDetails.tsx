@@ -8,17 +8,16 @@ interface Props {
 
 const PointsDetails: React.FC = () => {
 
+  const { selectedCamp, selectedCountry, pointSchool,
+    pointMonth, pointLessons } = useSelector((state: any) => state.chartData)
 
-  const selectedCamp: string = useSelector((state: any) => state.chartData.selectedCamp)
-  const selectedCountry: string = useSelector((state: any) => state.chartData.selectedCountry)
-  const pointSchool: string = useSelector((state: any) => state.chartData.pointSchool)
-  const pointMonth: string = useSelector((state: any) => state.chartData.pointMonth)
-  const pointLessons: number = useSelector((state: any) => state.chartData.pointLessons)
 
-  let navigate = useNavigate();
-  function back() {
+  const navigate = useNavigate();
+
+  const back = () => {
     navigate(-1)
   }
+
   return (
     <div className='pont-dtails-container'>
 

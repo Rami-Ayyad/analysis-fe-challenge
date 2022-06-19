@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './components/App/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PointsDetails from './components/PointDetails/PointsDetails';
+import PointsDetails from './Pages/PointDetails/PointsDetails';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
