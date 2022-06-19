@@ -9,7 +9,7 @@ import { LastOutPut } from "../../interfaces/interfaces"
 import { options, printDatasetAtEvent, printElementAtEvent } from './LineChartLogic';
 
 //Configuration for the chart to work
-ChartJS.register(...registerables)
+// ChartJS.register(...registerables)
 
 interface Props {
   finalDataObj: LastOutPut,
