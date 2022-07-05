@@ -1,6 +1,9 @@
 # Analysis Chart App :
 #### Basic Usage :
 - An application that displays a linear chart of data where the X-axis shows the months of the year and the Y-axis shows the number of lessons per month per school, The data is displayed based on the user selection of desired Country, Camp, and School. 
+#### installation :
+- start by installing all the dependenties by running `npm install`
+- launching the app on a local server by running `npm start`
 
 ## Technologies and Libraries :
 - HTML5,   CSS3,  JavaScript,  TypeScript
